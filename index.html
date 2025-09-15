@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            transition: background-color 2s;
+            font-family: 'Courier New', Courier, monospace;
+            color: black(7,7,7);
+            text-align: center;
+            padding-top: 70px;
+        }
+
+        button {
+            padding: 20px;
+            font-size: 16px;
+            margin-top: 20px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: rgb(0, 0, 0);
+            color: white;
+        }
+
+        @media(max-width: 768px){
+            body{ font-size: 35px; padding-top: 50px;}
+            button{ font-size: 14px; padding: 16px;}
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+        <h1 id ="titulo"> Bem-Vindo(a)
+            <br>
+            <br>
+            Clique para mudar a cor de acordo com o horário
+        </h1>
+
+        <p id = "hora"></p>
+        <p id= "data"></p>
+
+        <button onclick="mudar()">Mudar cor</button>
+
+
+<script>
+    function mudar() {
+
+        let cor;
+        let mensagem;
+        const agora = new Date();
+        const horario = agora.getHours();
+        const minutos = agora.getMinutes().toString().padStart(2, "0");
+        const opcoes = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
+        const dataFormatada = agora.toLocaleDateString("pt-BR", opcoes);
+ 
+        if (horario >= 6 && horario < 12) {
+            cor = "#FFD700";
+            mensagem = "Bom dia!! 🌞";
+
+        } else if (horario >= 12 && horario < 18) {
+            cor = "#FF8C00";
+            mensagem = "Boa tarde!! 🌤️";
+        
+        } else if (horario >= 18 && horario < 23) {
+            cor = "#1E90FF";
+            mensagem = "Boa noite!! 🌙";
+       
+        } else {
+            cor = "#2F4F4F";
+            mensagem = "Hora de dormir!! 😴";
+        }
+
+        document.body.style.backgroundColor = cor;
+        document.getElementById("titulo").innerHTML = mensagem;
+        document.getElementById("hora").innerHTML = horario+":"+minutos;
+        document.getElementById("data").innerHTML = dataFormatada;
+
+        }
+
+      
+
+
+
+
+    </script>
+</body>
+</html>
