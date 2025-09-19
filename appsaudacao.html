@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>App Saudação</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+</head>
+<style>
+    body{
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        }
+
+    #container {
+        background-color: rgb(221, 219, 219, 0.8);
+        padding: 20px;
+        max-width: 400px;
+        width: 100%;
+        border-radius: 10px;
+        text-align: center;
+        }
+    
+
+    button {
+        padding: 20px;
+        font-size: 16px;
+        margin-top: 20px;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+    }    
+    @media(max-width: 768px) {
+        body {font-size: 35px; padding-top:50px;}
+        button { font-size: 14px; padding: 16px;}
+        #container {width: 70%;}
+        }
+       
+   
+</style>    
+<body>
+    <div id="container">
+        <h1 id="titulo"></h1>
+        <p id="hora"></p>
+        <p id="data"></p>
+        <p id="util"></p>
+        <p id="frase"></p>
+    </div>
+    
+   
+    </div>
+    
+<script>
+    function trocar() {
+    const agora = new Date();
+    const hora = agora.getHours();
+    const minutos = agora.getMinutes().toString().padStart(2, "0");
+    const segundos = agora.getSeconds().toString().padStart(2, "0");
+    const opcoes = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
+    const dataFormatada = agora.toLocaleDateString("pt-br", opcoes);
+    const diautiloun = agora.getDay();
+    let cor;
+    let mensagem;
+    
+    if ( diautiloun >= 1 && diautiloun <= 5){
+        msg = "💼 Hoje é dia útil, vá trabalhar!!"
+    } else {
+        msg = "🍻 Hoje não é dia útil, vá beber!!"
+    }
+
+    if (hora>= 6 && hora <12){
+        cor = "#FFD700";
+        mensagem = "Bom dia ☀️"
+    frases = ["Bom dia! Não sei quem inventou o despertador, mas ele devia estar de mal com a vida.",
+              "Bom dia! Vamos fingir que estamos motivados e depois vê o que acontece.",
+              "Bom dia! Se você não acordou bonito hoje, pelo menos acordou… e isso já é um grande passo!"
+             ]
+    } else if (hora>= 12 && hora <18){
+    cor = "FF8C00";
+    mensagem = "Boa tarde ⛅";
+    frases = ["Boa tarde! Se você já sobreviveu até agora, está ganhando, meu amigo(a)!",
+              "A tarde está bonita, né? Vamos aproveitar com calma e carinho. Boa tarde!",
+              "Boa tarde! O que aconteceu até agora não importa, o que importa é o resto… ou não."
+             ]
+    } else if (hora >= 18 && hora < 23){
+    cor = "1E90FF"; // azul crepúsculo+.
+    mensagem = "Boa noite 🌙";
+    frases = ["Boa noite! Espero que você tenha sonhos tão bons quanto as sonecas que você tira durante o dia.",
+              "Boa noite! Vai dormir, mas não se preocupe, seus problemas continuam aqui amanhã.",
+              "Boa noite! Que a noite seja tranquila, o travesseiro macio e o despertador bem generoso"
+             ]
+    } else {
+    cor = "#2F4F4F";
+    mensagem = "Hora de descansar 🌑";
+    frases = ["A madrugada é silenciosa, mas cheia de oração. Que Deus te proteja durante o descanso. Boa madrugada!",
+              "Se acordou agora, que tenha um descanso tranquilo e abençoado. Boa madrugada!",
+              "Na calma da madrugada, que você sinta a presença de Deus te protegendo. Boa madrugada!"]
+    }
+    document.body.style.backgroundColor = cor;
+    document.getElementById("titulo").innerHTML = mensagem;
+    document.getElementById("hora").innerHTML= hora + ":" + minutos + ":" + segundos;
+    document.getElementById("util").innerHTML = msg;
+    document.getElementById("data").innerHTML = '📅' + dataFormatada;
+    
+    }
+    let frases = [];
+    function trocarFrase() {
+        if (frases.length > 0) {
+            const fraseAleatoria = frases[Math.floor(Math.random() * frases.length)]
+            document.getElementById("frase").innerHTML = fraseAleatoria;
+        }
+    }
+    
+    trocar();
+    setInterval (trocar, 1000);
+
+    trocarFrase();
+    setInterval(trocarFrase, 3000);
+</script>
+</body>
+</html>
